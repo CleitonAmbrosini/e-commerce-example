@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 16.x
       - name: Install dependencies
-        run: yarn --network-timeout 1000000
+        run: yarn install --network-timeout 1000000
       - name: Run jest
         run: yarn test
       - name: Run lint
