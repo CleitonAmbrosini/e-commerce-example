@@ -8,6 +8,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
+    strategy:
+      matrix:
+        node-version: [16.x]
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -15,14 +19,9 @@ jobs:
       - name: Setup Node.js environment      
         uses: actions/setup-node@v3.5.1
         with:
-          node-version: 16
-          cache: "yarn"
-          registry-url: "https://npm.pkg.github.com"
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependecies
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          yarn
+        run: yarn install
           
 
