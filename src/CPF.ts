@@ -1,49 +1,45 @@
 export default class CPF {
-  newCPF: string;
-  arrayCPF: Array<number>;
-  firstDigit: number;
-  secondDigit: number;
+  DIGIT_1_FACTOR = 10;
+  DIGIT_2_FACTOR = 11;
+  cpf: string;
 
-  constructor(readonly cpf: string) {
-    this.cleanCPF(cpf);
-    this.convertToArrayOfNumber();
-    this.firstDigit = this.obtainDigit(this.arrayCPF.slice(0, 9), 10);
-    this.secondDigit = this.obtainDigit(this.arrayCPF.slice(0, 10), 11);
+  constructor(readonly value: string) {
+    if (!this.isValid(value)) throw new Error('Invalid CPF.');
+    this.cpf = value;
   }
 
-  private cleanCPF(cpf: string): void {
-    this.newCPF = cpf.replace(/\D/g, '');
+  private isValid(value: string): boolean {
+    const cleanCPF = this.removeNonDigits(value);
+    if (!this.isInvalidLength(cleanCPF)) return false;
+    if (this.isAllDigitsTheSame(cleanCPF)) return false;
+    const lastDigits = cleanCPF.substring(9, 11);
+    const digit1 = this.calculateDigit(cleanCPF, this.DIGIT_1_FACTOR);
+    const digit2 = this.calculateDigit(cleanCPF, this.DIGIT_2_FACTOR);
+    const calculatedCheckDigits = `${digit1}${digit2}`;
+    return calculatedCheckDigits === lastDigits;
   }
 
-  private convertToArrayOfNumber(): void {
-    this.arrayCPF = this.newCPF.split('').map((character) => {
-      return Number(character);
-    });
+  private removeNonDigits(value: string): string {
+    return value.replace(/\D/g, '');
   }
 
-  private obtainDigit(arrayCPF: Array<number>, multiplier: number): number {
-    const sumOfDigits = arrayCPF.reduce((acc, valor) => {
-      const sum = acc + valor * multiplier;
-      multiplier--;
-      return sum;
-    }, 0);
-    return (sumOfDigits * 10) % 11;
+  private isInvalidLength(cleanCPF: string): boolean {
+    return cleanCPF.length === 11;
   }
 
-  validate() {
-    if (!this.correctLenght()) throw new Error('Invalid CPF length.');
-    if (!this.checkDigits()) throw new Error('Invalid CPF');
-    return true;
+  private isAllDigitsTheSame(cleanCPF: string): boolean {
+    const [firstDigit] = cleanCPF;
+    return [...cleanCPF].every((digit) => digit === cleanCPF[firstDigit]);
   }
 
-  private correctLenght(): boolean {
-    return this.newCPF.length === 11;
-  }
-
-  private checkDigits(): boolean {
-    return (
-      this.arrayCPF[9] === this.firstDigit &&
-      this.arrayCPF[10] === this.secondDigit
-    );
+  private calculateDigit(cpf: string, factor: number): number {
+    let total = 0;
+    for (const digit of cpf) {
+      if (factor > 1) {
+        total += Number(digit) * factor--;
+      }
+    }
+    const rest = total % 11;
+    return rest < 2 ? 0 : 11 - rest;
   }
 }

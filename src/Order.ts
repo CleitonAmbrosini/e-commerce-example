@@ -1,13 +1,14 @@
 import CPF from './CPF';
 import Item from './Item';
+import Coupon from './Coupon';
 
 export default class Order {
   itens: Array<Item> = [];
   total = 0;
+  customerCPF: CPF;
 
   constructor(readonly orderCPF: string) {
-    const customerCPF = new CPF(orderCPF);
-    customerCPF.validate();
+    this.customerCPF = new CPF(orderCPF);
   }
 
   addItem(item: Item): void {
@@ -15,10 +16,11 @@ export default class Order {
     this.total += item.price;
   }
 
-  applyDiscountInPercentage(discount: number): void {
-    const percent = discount / 100;
-    const discountTotal = this.total * percent;
-    this.total = Number((this.total - discountTotal).toFixed(2));
+  applyDiscountInPercentage(discountCoupon: Coupon): void {
+    if (!discountCoupon.isExpired()) {
+      const discont = this.total * discountCoupon.getPercentage();
+      this.total -= parseFloat(discont.toFixed(2));
+    }
   }
 
   getTotal(): number {
