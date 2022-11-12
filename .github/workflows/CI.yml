@@ -1,24 +1,25 @@
-name: pull_request
+name: Pull request
 
-on: 
+on:
   pull_request:
-    branches:
-      - main
-    
+    branches: [main]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2
-
+      - name: Checkout
+        uses: actions/checkout@v2
+        
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.5.1
         with:
-          node-version: 16.x
-      - name: Install dependencies
-        run: yarn install --network-timeout 1000000
-      - name: Run jest
-        run: yarn test
-      - name: Run lint
-        run: yarn lint
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Yarn CLI
+        uses: CultureHQ/actions-yarn@v1.0.1
+          
+      - name: Install dependecies
+        run:
+          yarn
