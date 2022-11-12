@@ -12,13 +12,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Setup Node.js environment
+      - name: Setup Node.js environment      
         uses: actions/setup-node@v3.5.1
         with:
-          node-version: ${{ matrix.node-version }}
-          
-      - uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: install # will run `yarn install` command
+          node-version: 16
+          cache: "yarn"
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Install dependecies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          yarn
           
 
