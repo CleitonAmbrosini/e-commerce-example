@@ -36,7 +36,7 @@ describe('Order tests', () => {
       newOrder.addItem(item1, 1);
       newOrder.addItem(item2, 2);
       newOrder.addItem(item3, 1);
-      newOrder.applyDiscountInPercentage(discontCoupon);
+      newOrder.applyDiscount(discontCoupon);
       expect(newOrder.getTotal()).toBe(128.23);
     });
 
@@ -51,7 +51,7 @@ describe('Order tests', () => {
       const item2 = new Item('Apa', 4.5, 18, 6, 8, 1.5);
       newOrder.addItem(item1, 1);
       newOrder.addItem(item2, 3);
-      newOrder.applyDiscountInPercentage(discontCoupon);
+      newOrder.applyDiscount(discontCoupon);
       expect(newOrder.getTotal()).toBe(19.25);
     });
   });
