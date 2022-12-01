@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import CPF from './CPF';
 import Item from './Item';
 import Coupon from './Coupon';
@@ -8,7 +9,10 @@ export default class Order {
   customerCPF: CPF;
   freight = 0;
 
-  constructor(readonly orderCPF: string) {
+  constructor(
+    readonly orderCPF: string,
+    readonly orderDate: Date = new Date(),
+  ) {
     this.customerCPF = new CPF(orderCPF);
   }
 
@@ -24,10 +28,11 @@ export default class Order {
     return this.itens.some((item) => item.description === itemName);
   }
 
-  applyDiscountInPercentage(discountCoupon: Coupon): void {
-    if (!discountCoupon.isExpired()) {
-      const discont = this.total * discountCoupon.getPercentage();
-      this.total -= parseFloat(discont.toFixed(2));
+  applyDiscount(discountCoupon: Coupon): void {
+    if (!discountCoupon.isExpired(this.orderDate)) {
+      this.total -= parseFloat(
+        discountCoupon.getDiscount(this.total).toFixed(2),
+      );
     }
   }
 

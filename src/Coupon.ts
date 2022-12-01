@@ -6,11 +6,11 @@ export default class Coupon {
     readonly expiration,
   ) {}
 
-  isExpired(): boolean {
-    return new Date() > this.expiration;
+  isExpired(date: Date): boolean {
+    return date > this.expiration;
   }
 
-  getPercentage(): number {
-    return this.percentage / 100;
+  getDiscount(value: number): number {
+    return value * (this.percentage / 100);
   }
 }
