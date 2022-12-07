@@ -13,9 +13,9 @@ describe('Order tests', () => {
 
   it('Should create a order with 3 itens', () => {
     const newOrder = new Order('073.711.920-95');
-    const item1 = new Item('Ipa', 5.75, 20, 8, 9, 1);
-    const item2 = new Item('Apa', 4.5, 18, 6, 8, 1.5);
-    const item3 = new Item('Double Ipa', 7.4, 19, 9, 7, 2);
+    const item1 = new Item(1, 'Ipa', 5.75, 20, 8, 9, 1);
+    const item2 = new Item(2, 'Apa', 4.5, 18, 6, 8, 1.5);
+    const item3 = new Item(3, 'Double Ipa', 7.4, 19, 9, 7, 2);
     newOrder.addItem(item1, 1);
     newOrder.addItem(item2, 2);
     newOrder.addItem(item3, 1);
@@ -30,9 +30,9 @@ describe('Order tests', () => {
         new Date('2022-15-11T12:00:00'),
       );
       const newOrder = new Order('073.711.920-95');
-      const item1 = new Item('Ipa', 24.52, 20, 8, 9, 1);
-      const item2 = new Item('Apa', 27.23, 18, 6, 8, 1.5);
-      const item3 = new Item('Double Ipa', 56, 19, 9, 7, 2);
+      const item1 = new Item(1, 'Ipa', 24.52, 20, 8, 9, 1);
+      const item2 = new Item(2, 'Apa', 27.23, 18, 6, 8, 1.5);
+      const item3 = new Item(3, 'Double Ipa', 56, 19, 9, 7, 2);
       newOrder.addItem(item1, 1);
       newOrder.addItem(item2, 2);
       newOrder.addItem(item3, 1);
@@ -47,8 +47,8 @@ describe('Order tests', () => {
         new Date('2022-01-11T12:00:00'),
       );
       const newOrder = new Order('073.711.920-95');
-      const item1 = new Item('Ipa', 5.75, 20, 8, 9, 1);
-      const item2 = new Item('Apa', 4.5, 18, 6, 8, 1.5);
+      const item1 = new Item(1, 'Ipa', 5.75, 20, 8, 9, 1);
+      const item2 = new Item(2, 'Apa', 4.5, 18, 6, 8, 1.5);
       newOrder.addItem(item1, 1);
       newOrder.addItem(item2, 3);
       newOrder.applyDiscount(discontCoupon);
@@ -59,26 +59,27 @@ describe('Order tests', () => {
   describe('Add item tests', () => {
     it('Should not add item with negative quantity', () => {
       const newOrder = new Order('073.711.920-95');
-      const item1 = new Item('Ipa', 24.52, 20, 8, 9, 1);
-      newOrder.addItem(item1, 2);
-      newOrder.addItem(item1, -5);
-      expect(newOrder.getItens()).toHaveLength(1);
+      const item1 = new Item(1, 'Ipa', 24.52, 20, 8, 9, 1);
+      expect(() => newOrder.addItem(item1, -5)).toThrowError(
+        new Error('Quantity of the item cannot be negative.'),
+      );
     });
 
     it('Should not add item if item already exist in the list', () => {
       const newOrder = new Order('073.711.920-95');
-      const item1 = new Item('Ipa', 24.52, 20, 8, 9, 1);
+      const item1 = new Item(1, 'Ipa', 24.52, 20, 8, 9, 1);
       newOrder.addItem(item1, 2);
-      newOrder.addItem(item1, 5);
-      expect(newOrder.getItens()).toHaveLength(1);
+      expect(() => newOrder.addItem(item1, 5)).toThrowError(
+        new Error('Item already exists in the order.'),
+      );
     });
   });
 
   describe('Freight tests', () => {
     it('Should calculate the value of freight', () => {
       const newOrder = new Order('073.711.920-95');
-      const item1 = new Item('Ipa', 24.52, 100, 30, 10, 3);
-      const item2 = new Item('Apa', 24.52, 20, 15, 10, 1);
+      const item1 = new Item(1, 'Ipa', 24.52, 100, 30, 10, 3);
+      const item2 = new Item(2, 'Apa', 24.52, 20, 15, 10, 1);
       newOrder.addItem(item1, 1);
       newOrder.addItem(item2, 1);
       expect(newOrder.getFreight()).toBe(39.99);
@@ -86,7 +87,7 @@ describe('Order tests', () => {
 
     it('Should return the minimal value of freight', () => {
       const newOrder = new Order('073.711.920-95');
-      const item2 = new Item('Apa', 24.52, 20, 15, 10, 1);
+      const item2 = new Item(1, 'Apa', 24.52, 20, 15, 10, 1);
       newOrder.addItem(item2, 1);
       expect(newOrder.getFreight()).toBe(10);
     });

@@ -2,7 +2,7 @@ import Coupon from '../src/Coupon';
 
 describe('Coupon tests', () => {
   it('Should create a coupon', () => {
-    const coupon = new Coupon('GET50', 50, new Date('2022-11-30T15:00:00'));
+    const coupon = new Coupon('GET50', 50, new Date());
     expect(coupon.getDiscount(100)).toBe(50);
   });
 

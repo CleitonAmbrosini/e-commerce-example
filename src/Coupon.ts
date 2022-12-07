@@ -2,8 +2,8 @@
 export default class Coupon {
   constructor(
     readonly name: string,
-    readonly percentage,
-    readonly expiration,
+    readonly percentage: number,
+    readonly expiration: Date,
   ) {}
 
   isExpired(date: Date): boolean {
@@ -11,6 +11,8 @@ export default class Coupon {
   }
 
   getDiscount(value: number): number {
-    return value * (this.percentage / 100);
+    if (this.isExpired(new Date())) return 0;
+    const finalValue = value * (this.percentage / 100);
+    return parseFloat(finalValue.toFixed(2));
   }
 }

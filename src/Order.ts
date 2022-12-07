@@ -2,11 +2,12 @@
 import CPF from './CPF';
 import Item from './Item';
 import Coupon from './Coupon';
+import OrderItem from './OrderItem';
 
 export default class Order {
-  itens: Array<Item> = [];
-  total = 0;
+  orderItems: OrderItem[];
   customerCPF: CPF;
+  coupon: Coupon;
   freight = 0;
 
   constructor(
@@ -14,26 +15,24 @@ export default class Order {
     readonly orderDate: Date = new Date(),
   ) {
     this.customerCPF = new CPF(orderCPF);
+    this.orderItems = [];
   }
 
   addItem(item: Item, quantity: number): void {
-    if (quantity > 0 && !this.existItemInList(item.description)) {
-      this.itens.push(item);
-      this.calculateFreight(item);
-      this.total += item.price * quantity;
-    }
+    if (this.existItemInList(item.getId()))
+      throw new Error('Item already exists in the order.');
+    this.orderItems.push(new OrderItem(item.id, item.price, quantity));
+    this.calculateFreight(item);
   }
 
-  existItemInList(itemName: string): boolean {
-    return this.itens.some((item) => item.description === itemName);
+  existItemInList(itemId: number): boolean {
+    return this.orderItems.some(
+      (orderItem) => orderItem.getIdItem() === itemId,
+    );
   }
 
   applyDiscount(discountCoupon: Coupon): void {
-    if (!discountCoupon.isExpired(this.orderDate)) {
-      this.total -= parseFloat(
-        discountCoupon.getDiscount(this.total).toFixed(2),
-      );
-    }
+    this.coupon = discountCoupon;
   }
 
   calculateFreight(item: Item): void {
@@ -41,11 +40,21 @@ export default class Order {
   }
 
   getTotal(): number {
-    return parseFloat(this.total.toFixed(2));
+    let totalValue = this.orderItems.reduce((total, item) => {
+      total += item.getTotal();
+      return total;
+    }, 0);
+
+    if (this.coupon) {
+      totalValue = parseFloat(
+        (totalValue - this.coupon.getDiscount(totalValue)).toFixed(2),
+      );
+    }
+    return totalValue;
   }
 
-  getItens(): Array<Item> {
-    return this.itens;
+  getItens(): Array<OrderItem> {
+    return this.orderItems;
   }
 
   getFreight(): number {
