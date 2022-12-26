@@ -12,10 +12,11 @@
 </p>
 
 ## Description
+
 **Skal** is a simple example of a craft beer e-commerce. The purpose of this project is learn and practice good programming practices
 and software architecture patterns.
+
 ## Technologies
-<hr>
 
 The project was developed using the following technologies
 - [NodeJS](https://nodejs.org/en/)
@@ -24,25 +25,32 @@ The project was developed using the following technologies
 - [GitHub Actions](https://docs.github.com/en/actions)
 
 ## Functional requirements
-<hr>
 
 :heavy_check_mark: Should not create an order with an invalid CPF
+
 :heavy_check_mark: Should create a order with 3 items (with description, price and quatity)
+
 :heavy_check_mark: Should create an order with a discount coupon (percentage on the order total)
+
 :heavy_check_mark: Should not apply a expired discount coupon
+
 :heavy_check_mark: When placing an order, the quantity of an item cannot be negative
+
 :heavy_check_mark: When placing an order, the same item cannot be entered more than once
+
 :heavy_check_mark: No item dimension can be negative
+
 :heavy_check_mark: Item weight cannot be negative
+
 :heavy_check_mark: Should return the minimum freight price if it is higher than the calculated value
+
 :heavy_check_mark: Calculates the freight based on the dimensions (height, width and depth in cm) and the weight of the products (in kg)
 
 ## Requirements for use
-<hr>
 
   To be able to run the project on your machine you will need to have installed **[Node.js](https://nodejs.org/en/)** version **v18.12.1**.
+
 ## Running the project
-<hr>
 
   To run the project it is recommended to use yarn
   ```bash
@@ -58,8 +66,8 @@ The project was developed using the following technologies
   # Run the tests
   $ yarn test
   ```
+
 ## Commit types
-<hr>
 
 -   **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
 -   **ci**: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
@@ -74,11 +82,10 @@ The project was developed using the following technologies
 
 ##  Author
 
-<hr>
-<img src="https://avatars.githubusercontent.com/u/11162929?s=400&u=d18742ea30b81e734a1ac342c9671dd9ae2bb564&v=4" width="100" style="border-radius: 100px" />
+<img src="./public/avatar.png" width="150" />
 
-<font size="2"> Cleiton A. Ambrosini </font> <br />
-<font size="1"> Software Developer </font>
+##### Cleiton A. Ambrosini
+###### _Software Developer_
 
 [![Linkedin Badge](https://img.shields.io/badge/Cleiton%20Ambrosini-blue?style=flat-square&logo=linkedin&labelColor=blue)](mailto:cleiton.ambro@gmail.com)
 [![Gmail Badge](https://img.shields.io/badge/-cleiton.ambro@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:cleiton.ambro@gmail.com)](https://www.linkedin.com/in/cleitonambrosini/)
