@@ -3,12 +3,13 @@ import CPF from './CPF';
 import Item from './Item';
 import Coupon from './Coupon';
 import OrderItem from './OrderItem';
+import FreightCalculator from './FreightCalculator';
 
 export default class Order {
-  orderItems: OrderItem[];
-  customerCPF: CPF;
-  coupon: Coupon;
-  freight = 0;
+  private orderItems: OrderItem[];
+  private customerCPF: CPF;
+  private coupon?: Coupon;
+  private freight = 0;
 
   constructor(
     readonly orderCPF: string,
@@ -22,7 +23,7 @@ export default class Order {
     if (this.existItemInList(item.getId()))
       throw new Error('Item already exists in the order.');
     this.orderItems.push(new OrderItem(item.id, item.price, quantity));
-    this.calculateFreight(item);
+    this.freight += FreightCalculator.getFreight(item) * quantity;
   }
 
   existItemInList(itemId: number): boolean {
@@ -35,10 +36,6 @@ export default class Order {
     this.coupon = discountCoupon;
   }
 
-  calculateFreight(item: Item): void {
-    this.freight += 1000 * item.getVolume() * (item.getDensity() / 100);
-  }
-
   getTotal(): number {
     let totalValue = this.orderItems.reduce((total, item) => {
       total += item.getTotal();
@@ -46,18 +43,13 @@ export default class Order {
     }, 0);
 
     if (this.coupon) {
-      totalValue = parseFloat(
-        (totalValue - this.coupon.getDiscount(totalValue)).toFixed(2),
-      );
+      totalValue -= this.coupon.getDiscount(totalValue);
     }
-    return totalValue;
+    totalValue += this.freight;
+    return parseFloat(totalValue.toFixed(2));
   }
 
   getItens(): Array<OrderItem> {
     return this.orderItems;
-  }
-
-  getFreight(): number {
-    return this.freight < 10 ? 10 : this.freight;
   }
 }
