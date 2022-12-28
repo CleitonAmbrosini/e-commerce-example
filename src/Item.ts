@@ -1,26 +1,21 @@
 /* eslint-disable no-unused-vars */
 
+import ProductMeasurements from './ProductMeasurements';
+
 export default class Item {
   constructor(
-    readonly id,
+    readonly id: number,
     readonly description: string,
     readonly price: number,
-    readonly height,
-    readonly width,
-    readonly depth,
-    readonly weight,
-  ) {
-    if (this.height <= 0 || this.width <= 0 || this.depth <= 0)
-      throw new Error('Invalid dimension.');
-    if (this.weight <= 0) throw new Error('Invalid weight.');
-  }
+    readonly productMeasurements: ProductMeasurements,
+  ) {}
 
   getVolume(): number {
-    return (this.height / 100) * (this.width / 100) * (this.depth / 100);
+    return this.productMeasurements.getVolume();
   }
 
   getDensity(): number {
-    return parseFloat((this.weight / this.getVolume()).toFixed());
+    return this.productMeasurements.getDensity();
   }
 
   getId() {

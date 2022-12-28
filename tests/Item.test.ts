@@ -1,17 +1,22 @@
 import Item from '../src/Item';
-
-// description, price, height, width, depth and weight
+import ProductMeasurements from '../src/ProductMeasurements';
 
 describe('Item tests', () => {
-  it('Should not create a item if some dimension is negative', () => {
-    expect(() => new Item(1, 'Ipa', 24.52, 20, 8, -9, 1)).toThrowError(
-      new Error('Invalid dimension.'),
-    );
+  const item = new Item(1, 'Ipa', 24.52, new ProductMeasurements(20, 8, 9, 1));
+
+  it('Should create a item', () => {
+    expect(item).toBeDefined();
   });
 
-  it('Should not create a item if weight is negative', () => {
-    expect(() => new Item(1, 'Ipa', 24.52, 20, 8, 6, -1)).toThrowError(
-      new Error('Invalid weight.'),
-    );
+  it('Should return volume', () => {
+    expect(item.getVolume()).toBe(0.0014);
+  });
+
+  it('Should return density', () => {
+    expect(item.getDensity()).toBe(714);
+  });
+
+  it('Should return item id', () => {
+    expect(item.getId()).toBe(1);
   });
 });
