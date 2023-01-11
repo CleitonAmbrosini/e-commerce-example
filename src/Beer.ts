@@ -2,9 +2,10 @@
 
 import ProductMeasurements from './ProductMeasurements';
 
-export default class Item {
+export default class Beer {
   constructor(
     readonly id: number,
+    readonly brand: string,
     readonly description: string,
     readonly price: number,
     readonly productMeasurements: ProductMeasurements,
@@ -18,7 +19,7 @@ export default class Item {
     return this.productMeasurements.getDensity();
   }
 
-  getId() {
+  getId(): number {
     return this.id;
   }
 }

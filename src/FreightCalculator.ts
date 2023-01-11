@@ -1,8 +1,15 @@
-import Item from './Item';
+import Beer from './Beer';
 
 export default class FreightCalculator {
-  static getFreight(item: Item) {
-    const freight = 1000 * item.getVolume() * (item.getDensity() / 100);
-    return freight < 10 ? 10 : parseFloat(freight.toFixed(2));
+  static MINIMAL_DISTANCE = 1000;
+  static MINIMAL_FREIGHT_VALUE = 10;
+
+  static getFreight(beer: Beer) {
+    const freightValue =
+      this.MINIMAL_DISTANCE * beer.getVolume() * (beer.getDensity() / 100);
+
+    return freightValue < this.MINIMAL_FREIGHT_VALUE
+      ? this.MINIMAL_FREIGHT_VALUE
+      : parseFloat(freightValue.toFixed(2));
   }
 }

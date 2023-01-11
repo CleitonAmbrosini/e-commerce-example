@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import CPF from './CPF';
-import Item from './Item';
+import Beer from './Beer';
 import Coupon from './Coupon';
 import OrderItem from './OrderItem';
 import FreightCalculator from './FreightCalculator';
@@ -19,7 +19,7 @@ export default class Order {
     this.orderItems = [];
   }
 
-  addItem(item: Item, quantity: number): void {
+  addItem(item: Beer, quantity: number): void {
     if (this.existItemInList(item.getId()))
       throw new Error('Item already exists in the order.');
     this.orderItems.push(new OrderItem(item.id, item.price, quantity));
