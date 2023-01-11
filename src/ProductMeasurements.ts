@@ -6,8 +6,6 @@ export default class ProductMeasurements {
   }
 
   getDensity() {
-    console.log('kilos: ', this.convertGramsToKilograms(this.weight));
-    console.log('m3: ', this.convertMilliliterToCubicMeters(this.capacity));
     return (
       this.convertGramsToKilograms(this.weight) /
       this.convertMilliliterToCubicMeters(this.capacity)
