@@ -7,26 +7,30 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node-version: [16.x]
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
-      - name: Setup Node.js environment      
+
+      - name: Setup Node.js environment
         uses: actions/setup-node@v3.5.1
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependecies
         run: yarn install
-      
+
       - name: Run unit test
-        run: yarn test
-      
+        run:
+        yarn server &
+        sleep 10 &&
+        curl http://localhost:3000 &&
+        yarn test
+
       - name: Run lint
         run: yarn lint
 

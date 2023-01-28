@@ -1,4 +1,4 @@
-import Coupon from '../src/Coupon';
+import Coupon from '../../src/domain/entities/Coupon';
 
 describe('Coupon tests', () => {
   it('Should create a coupon', () => {

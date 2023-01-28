@@ -29,7 +29,9 @@ export default class CPF {
 
   private isAllDigitsTheSame(cleanCPF: string): boolean {
     const [firstDigit] = cleanCPF;
-    return [...cleanCPF].every((digit) => digit === cleanCPF[firstDigit]);
+    return [...cleanCPF].every(
+      (digit: string) => digit === (cleanCPF as any)[firstDigit],
+    );
   }
 
   private calculateDigit(cpf: string, factor: number): number {
