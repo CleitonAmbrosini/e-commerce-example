@@ -26,7 +26,7 @@ jobs:
 
       - name: Run unit test
         run:
-        yarn server &
+        yarn server &&
         sleep 10 &&
         curl http://localhost:3000 &&
         yarn test
