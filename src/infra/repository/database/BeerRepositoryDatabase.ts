@@ -5,10 +5,9 @@ import ProductMeasurements from '../../../domain/entities/ProductMeasurements';
 import Connection from '../../database/Connection';
 
 export default class BeerRepositoryDatabase implements BeerRepository {
-  constructor(readonly connection: Connection) { }
+  constructor(readonly connection: Connection) {}
 
   async getItem(idItem: number): Promise<Beer> {
-    console.log(`${__dirname}\\productsDB.json`);
     const products = await this.connection.query(
       `${__dirname}/productsDB.json`,
       'utf-8',
