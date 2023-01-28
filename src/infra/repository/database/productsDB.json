@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "brand": "IncubusBeer",
+    "description": "APA 355ml",
+    "price": 22.50,
+    "capacity": 355,
+    "weight": 600
+  },
+  {
+    "id": 2,
+    "brand": "GoodHop",
+    "description": "IPA 475ml",
+    "price": 26.0,
+    "capacity": 475,
+    "weight": 700
+  }
+]

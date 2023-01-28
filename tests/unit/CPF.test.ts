@@ -1,4 +1,4 @@
-import CPF from '../src/CPF';
+import CPF from '../../src/domain/entities/CPF';
 
 const CPFsWithSameDigit = [
   '000.000.000-00',

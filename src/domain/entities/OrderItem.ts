@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-
 export default class OrderItem {
   constructor(
     readonly idItem: number,

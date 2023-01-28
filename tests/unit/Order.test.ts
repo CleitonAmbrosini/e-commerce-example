@@ -1,7 +1,7 @@
-import Coupon from '../src/Coupon';
-import Beer from '../src/Beer';
-import Order from '../src/Order';
-import ProductMeasurements from '../src/ProductMeasurements';
+import Coupon from '../../src/domain/entities/Coupon';
+import Beer from '../../src/domain/entities/Beer';
+import Order from '../../src/domain/entities/Order';
+import ProductMeasurements from '../../src/domain/entities/ProductMeasurements';
 
 describe('Order tests', () => {
   it('Should not create a order if CPF is invalid', () => {

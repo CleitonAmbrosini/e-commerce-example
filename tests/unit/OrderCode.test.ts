@@ -1,4 +1,4 @@
-import OrderCode from '../src/OrderCode';
+import OrderCode from '../../src/domain/entities/OrderCode';
 
 describe('OrderCode tests', () => {
   it('Should return the order code', () => {

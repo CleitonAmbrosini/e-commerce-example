@@ -1,6 +1,6 @@
-import FreightCalculator from '../src/FreightCalculator';
-import Beer from '../src/Beer';
-import ProductMeasurements from '../src/ProductMeasurements';
+import FreightCalculator from '../../src/domain/entities/FreightCalculator';
+import Beer from '../../src/domain/entities/Beer';
+import ProductMeasurements from '../../src/domain/entities/ProductMeasurements';
 
 describe('FreightCalculator tests', () => {
   it('Should calculate the value of freight', () => {
