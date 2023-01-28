@@ -46,6 +46,8 @@ The project was developed using the following technologies
 
 :heavy_check_mark: Calculates the freight based on the dimensions (height, width and depth in cm) and the weight of the products (in kg)
 
+:heavy_check_mark: Should generate the order code as YYYYOOOOOOOO, where Y is the year and the O is the sequence number of the order.
+
 ## Requirements for use
 
   To be able to run the project on your machine you will need to have installed **[Node.js](https://nodejs.org/en/)** version **v18.12.1**.

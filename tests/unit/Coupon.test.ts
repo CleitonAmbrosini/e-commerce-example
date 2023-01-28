@@ -1,4 +1,4 @@
-import Coupon from '../src/Coupon';
+import Coupon from '../../src/domain/entities/Coupon';
 
 describe('Coupon tests', () => {
   it('Should create a coupon', () => {
@@ -11,7 +11,9 @@ describe('Coupon tests', () => {
   });
 
   it('Should return value with discount', () => {
-    const coupon = new Coupon('GET50', 50, new Date());
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+    const coupon = new Coupon('GET50', 50, date);
     expect(coupon.getDiscount(100)).toBe(50);
   });
 

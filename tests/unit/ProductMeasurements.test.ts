@@ -1,4 +1,4 @@
-import ProductMeasurements from '../src/ProductMeasurements';
+import ProductMeasurements from '../../src/domain/entities/ProductMeasurements';
 
 describe('ProductMeasurements tests', () => {
   describe('Negative values tests', () => {

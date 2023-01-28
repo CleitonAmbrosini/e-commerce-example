@@ -1,5 +1,5 @@
-import Beer from '../src/Beer';
-import ProductMeasurements from '../src/ProductMeasurements';
+import Beer from '../../src/domain/entities/Beer';
+import ProductMeasurements from '../../src/domain/entities/ProductMeasurements';
 
 describe('Item tests', () => {
   const item = new Beer(
